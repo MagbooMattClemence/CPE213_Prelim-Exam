@@ -1,0 +1,19 @@
+---
+- name: Install Fail2ban
+  apt:
+    name: fail2ban
+    state: present
+
+- name: Ensure Fail2ban service is enabled and running
+  service:
+    name: fail2ban
+    state: started
+    enabled: yes
+
+- name: Deploy Fail2ban jail configuration
+  template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    owner: root
+    group: root
+    mode: '0644'
